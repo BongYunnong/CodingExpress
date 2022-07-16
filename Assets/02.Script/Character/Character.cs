@@ -21,6 +21,7 @@ public class Character : MonoBehaviour
     Rigidbody rb;
     Animator anim;
 
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -47,7 +48,8 @@ public class Character : MonoBehaviour
 
                 break;
             case MoveType.FollowTarget:
-                input = (target.position - this.transform.position);
+                if(target)
+                    input = (target.position - this.transform.position);
                 input.y = 0;
                 input.Normalize();
                 break;

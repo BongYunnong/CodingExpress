@@ -179,6 +179,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.33962262
       objectReference: {fileID: 0}
+    - target: {fileID: 7147771785592849062, guid: 285fae2b3e8720147b8201a8ddaa60c5, type: 3}
+      propertyPath: randomCustom
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3198306936568827722, guid: 285fae2b3e8720147b8201a8ddaa60c5, type: 3}
     - {fileID: 882991728950895792, guid: 285fae2b3e8720147b8201a8ddaa60c5, type: 3}

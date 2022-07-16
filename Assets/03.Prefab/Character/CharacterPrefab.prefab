@@ -71,15 +71,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 7
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 7294408700040827651, guid: 50ff24fa66493fd48ad3569f94f6d359, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 2.0625, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &702162854620624992
@@ -1259,6 +1259,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ea35522f140ab4f991d36b41b24bd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  randomCustom: 1
+  hairSprites:
+  - {fileID: 776565355714995184, guid: eb61c30216a4a664b8fe9c574e1deba0, type: 3}
+  - {fileID: 3134291266870389252, guid: eb61c30216a4a664b8fe9c574e1deba0, type: 3}
+  - {fileID: 7634738268486280997, guid: eb61c30216a4a664b8fe9c574e1deba0, type: 3}
+  - {fileID: 5581323002582905294, guid: eb61c30216a4a664b8fe9c574e1deba0, type: 3}
+  - {fileID: -3207923982195961311, guid: eb61c30216a4a664b8fe9c574e1deba0, type: 3}
+  - {fileID: -697172265761849434, guid: eb61c30216a4a664b8fe9c574e1deba0, type: 3}
+  - {fileID: -1111225259008132880, guid: eb61c30216a4a664b8fe9c574e1deba0, type: 3}
+  - {fileID: -9011984236861207375, guid: eb61c30216a4a664b8fe9c574e1deba0, type: 3}
+  - {fileID: 6109900016518647812, guid: eb61c30216a4a664b8fe9c574e1deba0, type: 3}
+  - {fileID: 6610090552540594839, guid: eb61c30216a4a664b8fe9c574e1deba0, type: 3}
+  - {fileID: -8498358415903138271, guid: eb61c30216a4a664b8fe9c574e1deba0, type: 3}
+  - {fileID: 4494407588062875061, guid: eb61c30216a4a664b8fe9c574e1deba0, type: 3}
+  - {fileID: -5754660213613290320, guid: eb61c30216a4a664b8fe9c574e1deba0, type: 3}
+  - {fileID: -426788652402579593, guid: eb61c30216a4a664b8fe9c574e1deba0, type: 3}
+  - {fileID: 6533085404797416385, guid: eb61c30216a4a664b8fe9c574e1deba0, type: 3}
+  - {fileID: 8823902549367254238, guid: eb61c30216a4a664b8fe9c574e1deba0, type: 3}
+  - {fileID: 1471589358449951931, guid: eb61c30216a4a664b8fe9c574e1deba0, type: 3}
+  - {fileID: -7029936500905474979, guid: eb61c30216a4a664b8fe9c574e1deba0, type: 3}
+  - {fileID: -2586516515869048404, guid: eb61c30216a4a664b8fe9c574e1deba0, type: 3}
+  - {fileID: -6828932232504684635, guid: eb61c30216a4a664b8fe9c574e1deba0, type: 3}
+  - {fileID: -478584516199178873, guid: eb61c30216a4a664b8fe9c574e1deba0, type: 3}
+  backHairSprites:
+  - {fileID: 2551535026127511604, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: 3977170949977436877, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: -1059993061486119531, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: -7753943564303734727, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: 519529502224604336, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: -7882208561201141068, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: -2330661809516136227, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: -5830847217249740458, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: -4412806478040746742, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: 2349940353860512538, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: 8414267888016022262, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: -4910441798819249847, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: -5177615889399805555, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: -3871062462078584611, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: -683744314685033663, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: 1723244843699112104, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: 2977873649421703700, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: -4844978929033204751, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: -5982618741654934526, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: -3639901199274373920, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: -5836000061541841719, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: -8020113330407934058, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: -2558607656656444443, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
+  - {fileID: -1282263166148155026, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
   emotionSprites:
   - {fileID: 5631061850420376628, guid: 4ddc7dc5210cda44c9857be745c6d0d2, type: 3}
   - {fileID: 417236617329214129, guid: 4ddc7dc5210cda44c9857be745c6d0d2, type: 3}
@@ -1269,6 +1317,8 @@ MonoBehaviour:
   - {fileID: 1577728936025287283, guid: 4ddc7dc5210cda44c9857be745c6d0d2, type: 3}
   - {fileID: 5798817009666051303, guid: 4ddc7dc5210cda44c9857be745c6d0d2, type: 3}
   - {fileID: -7208731057840503612, guid: 50ff24fa66493fd48ad3569f94f6d359, type: 3}
+  HairSR: {fileID: 781485673736527177}
+  BackHairSR: {fileID: 1959909806488220965}
   FaceSR: {fileID: 2391334468446637598}
   myFaceSprite: 8
 --- !u!1 &6251863418840686920
@@ -1797,7 +1847,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 585303396665052997, guid: 50ff24fa66493fd48ad3569f94f6d359, type: 3}
+  m_Sprite: {fileID: 2551535026127511604, guid: 48791f5ebb71fc040995ba0f692805f1, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
