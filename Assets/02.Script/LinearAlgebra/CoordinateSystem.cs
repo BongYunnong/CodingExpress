@@ -60,16 +60,36 @@ public class CoordinateSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.V))
         {
-            for (int i = -5; i < 5; i++)
+            for (int i = -4; i < 5; i++)
             {
-                for (int j = -5; j < 5; j++)
+                for (int j = -4; j < 5; j++)
                 {
-                    for (int k = -5; k < 5; k++)
+                    for (int k = -4; k < 5; k++)
                     {
-                        FindObjectOfType<VectorGenerator>().CreateVector(0, 0, 0, i, j, k,"newVec"+i+"-"+j+"-"+k);
+                        FindObjectOfType<VectorGenerator>().CreateVector(true,0, 0, 0, i, j, k,"newVec"+i+"-"+j+"-"+k);
                     }
                 }
             }
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            int random = Random.Range(0, LinearAlgebraManager.GetInstance().myVectors.Count);
+            MyVector tmpVec=null;
+            foreach (KeyValuePair<string,MyVector> v in LinearAlgebraManager.GetInstance().myVectors)
+            {
+                random--;
+                if (random <= 0)
+                {
+                    tmpVec = v.Value;
+                    break;
+                }
+            }
+
+            FindObjectOfType<VectorGenerator>().CreateVector(true,
+                tmpVec.endPos.x, tmpVec.endPos.y, tmpVec.endPos.z,
+                Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10));
         }
     }
 }

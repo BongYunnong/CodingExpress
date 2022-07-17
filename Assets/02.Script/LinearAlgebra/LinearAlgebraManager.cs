@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using TMPro;
+
 
 public class LinearAlgebraManager : MonoBehaviour
 {
@@ -26,6 +28,9 @@ public class LinearAlgebraManager : MonoBehaviour
 
     [SerializeField] MyVector[] axisBasedPresentationVectors= new MyVector[3];
     bool initialized = false;
+
+    [SerializeField] TMPro.TMP_Text calculatedResultTxt;
+
     private void Start()
     {
         axisBasedPresentationVectors[0].SetVectorName("baseAxisX");
@@ -64,6 +69,19 @@ public class LinearAlgebraManager : MonoBehaviour
                     UpdateSelectedVectors(2, null);
                 }
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) )
+        {
+            CalculateVectorSum();
+        }
+        else if (Input.GetKeyDown(KeyCode.P))
+        {
+            CalculateVectorDotProduct();
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            CalculateVectorCrossProduct();
         }
     }
 
@@ -121,19 +139,81 @@ public class LinearAlgebraManager : MonoBehaviour
         if (openDetailPanel)
         {
             DetailPanel.GetComponent<VectorDetail>().SelectVector(selectedVectors[0]);
+            UpdateAxisBasedPresentationVectors();
+        }
+    }
 
-            if (initialized)
+    public void UpdateAxisBasedPresentationVectors()
+    {
+        bool openDetailPanel = selectedVectors.Count == 1;
+        if (initialized && openDetailPanel)
+        {
+            axisBasedPresentationVectors[0].InitializeVector(
+                selectedVectors[0].startPos,
+                new Vector3(selectedVectors[0].endPos[0], selectedVectors[0].startPos[1], selectedVectors[0].startPos[2]));
+            axisBasedPresentationVectors[1].InitializeVector(
+                axisBasedPresentationVectors[0].endPos,
+                new Vector3(axisBasedPresentationVectors[0].endPos[0], selectedVectors[0].endPos[1], axisBasedPresentationVectors[0].endPos[2]));
+            axisBasedPresentationVectors[2].InitializeVector(
+                axisBasedPresentationVectors[1].endPos,
+                new Vector3(axisBasedPresentationVectors[1].endPos[0], axisBasedPresentationVectors[1].endPos[1], selectedVectors[0].endPos[2]));
+        }
+    }
+
+    public void CalculateVectorSum()
+    {
+        if (selectedVectors.Count >= 2)
+        {
+            VectorGenerator vg = FindObjectOfType<VectorGenerator>();
+
+            Vector3 guidStartPos = selectedVectors[0].startPos;
+            for (int i = 1; i < selectedVectors.Count; i++)
             {
-                axisBasedPresentationVectors[0].InitializeVector(
-                    selectedVectors[0].startPos,
-                    new Vector3(selectedVectors[0].endPos[0], selectedVectors[0].startPos[1], selectedVectors[0].startPos[2]));
-                axisBasedPresentationVectors[1].InitializeVector(
-                    axisBasedPresentationVectors[0].endPos,
-                    new Vector3(axisBasedPresentationVectors[0].endPos[0], selectedVectors[0].endPos[1], axisBasedPresentationVectors[0].endPos[2]));
-                axisBasedPresentationVectors[2].InitializeVector(
-                    axisBasedPresentationVectors[1].endPos,
-                    new Vector3(axisBasedPresentationVectors[1].endPos[0], axisBasedPresentationVectors[1].endPos[1], selectedVectors[0].endPos[2]));
+                Vector3 VectorA = selectedVectors[i - 1].endPos - selectedVectors[i - 1].startPos;
+                Vector3 VectorB = selectedVectors[i].endPos - selectedVectors[i].startPos;
+                MyVector calculatedVec = vg.CreateVector(false,
+                    guidStartPos.x, guidStartPos.y, guidStartPos.z,
+                    guidStartPos.x + VectorA.x + VectorB.x, guidStartPos.y + VectorA.y + VectorB.y, guidStartPos.z + VectorA.z + VectorB.z, "VectorSumGuide"
+                    );
+                guidStartPos = calculatedVec.endPos;
             }
+        }
+    }
+
+    public void CalculateVectorDotProduct()
+    {
+        if (selectedVectors.Count == 2)
+        {
+            calculatedResultTxt.text = selectedVectors[0].name + " Dot " + selectedVectors[1].name +
+                "<br> = " + Vector3.Dot(selectedVectors[0].distance, selectedVectors[1].distance) +
+                "<br> = ||" + selectedVectors[0].name + "|| * ||" + selectedVectors[1].name + "|| * Cos(" + Vector3.Angle(selectedVectors[0].distance, selectedVectors[1].distance) + ")" +
+                "<br> = " + selectedVectors[0].magnitude + " * " + selectedVectors[1].magnitude + " * " + Mathf.Cos(Vector3.Angle(selectedVectors[0].distance, selectedVectors[1].distance) * Mathf.PI / 180);
+            VectorGenerator vg = FindObjectOfType<VectorGenerator>();
+
+            Vector3 projectedVec = Vector3.Project(selectedVectors[0].distance, selectedVectors[1].distance);
+
+            MyVector calculatedVec = vg.CreateVector(false,
+                selectedVectors[0].endPos.x, selectedVectors[0].endPos.y, selectedVectors[0].endPos.z,
+                selectedVectors[0].startPos.x + projectedVec.x, selectedVectors[0].startPos.y + projectedVec.y, selectedVectors[0].startPos.z + projectedVec.z, "VectorDotProductGuide"
+                );
+        }
+    }
+    public void CalculateVectorCrossProduct()
+    {
+        if (selectedVectors.Count == 2)
+        {
+            Vector3 crossedVec = Vector3.Cross(selectedVectors[0].distance, selectedVectors[1].distance);
+            calculatedResultTxt.text = selectedVectors[0].name + " Cross " + selectedVectors[1].name +
+                "<br> = " + crossedVec +
+                "<br> Vector's length = ||" + selectedVectors[0].name + "|| * ||" + selectedVectors[1].name + "|| * Sin(" + Vector3.Angle(selectedVectors[0].distance, selectedVectors[1].distance) + ")" +
+                "<br> Vector's length = " + selectedVectors[0].magnitude + " * " + selectedVectors[1].magnitude + " * " + Mathf.Sin(Vector3.Angle(selectedVectors[0].distance, selectedVectors[1].distance) * Mathf.PI / 180);
+            VectorGenerator vg = FindObjectOfType<VectorGenerator>();
+
+
+            MyVector calculatedVec = vg.CreateVector(false,
+                selectedVectors[0].startPos.x, selectedVectors[0].startPos.y, selectedVectors[0].startPos.z,
+                selectedVectors[0].startPos.x + crossedVec.x, selectedVectors[0].startPos.y + crossedVec.y, selectedVectors[0].startPos.z + crossedVec.z, "VectorCrossProductGuide"
+                );
         }
     }
 }

@@ -20,6 +20,10 @@ public class MyVector : MonoBehaviour
     public Vector3 startPos;
     public Vector3 endPos;
 
+    public Vector3 distance { get; private set; }
+    private Vector3 direction;
+    public float magnitude{ get; private set; }
+
     public void InitializeVector(Vector3 _startPos, Vector3 _endPos)
     {
         this.transform.position = _startPos;
@@ -33,8 +37,8 @@ public class MyVector : MonoBehaviour
         vectorNameTextMesh.transform.LookAt(_startPos + Vector3.Cross((_endPos - _startPos), Vector3.up));
         vectorPosTextMesh.transform.LookAt(_endPos + Vector3.Cross((_endPos - _startPos), Vector3.up));
 
-        Vector3 dist = (_endPos - _startPos);
-        vectorPosTextMesh.text = "(" + dist.x + "," + dist.y + "," + dist.z + ")";
+        distance = (_endPos - _startPos);
+        vectorPosTextMesh.text = "(" + distance.x + "," + distance.y + "," + distance.z + ")";
 
         int timer = 0;
         while (timer< vectorLengthParabola.positionCount)
@@ -50,10 +54,12 @@ public class MyVector : MonoBehaviour
             vectorLengthParabola.SetPosition(timer, tempPos-_startPos);
             timer += 1;
         }
-        vectorLengthTextMesh.text = (_endPos - _startPos).magnitude.ToString();
+        magnitude = distance.magnitude;
+        vectorLengthTextMesh.text = magnitude.ToString();
 
         startPos = _startPos;
         endPos = _endPos;
+        direction = distance.normalized;
     }
     protected static Vector3 Parabola(Vector3 start, Vector3 end, float height, float t)
     {
@@ -73,6 +79,7 @@ public class MyVector : MonoBehaviour
     }
     public void SetVectorColor(Color _color)
     {
+        _color.a = vectorStart.material.color.a;
         vectorStart.material.color = _color;
         vectorHead.material.color = _color;
         vectorBody.material.color = _color;
@@ -81,5 +88,10 @@ public class MyVector : MonoBehaviour
     public void Activate(bool _activate)
     {
         vectorInfoBox.gameObject.SetActive(_activate);
+    }
+
+    public void ChangeScale(float _value)
+    {
+        InitializeVector(startPos, startPos+direction * (magnitude+_value*Time.deltaTime));
     }
 }

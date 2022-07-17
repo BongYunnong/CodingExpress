@@ -7,6 +7,7 @@ using TMPro;
 public class VectorGenerator : MonoBehaviour
 {
     [SerializeField] GameObject VectorPrefab;
+    [SerializeField] GameObject GuideVectorPrefab;
 
     [SerializeField] TMPro.TMP_InputField vectorNameInputField;
 
@@ -16,7 +17,7 @@ public class VectorGenerator : MonoBehaviour
     [SerializeField] ColorPicker vectorColorPicker;
 
 
-    public void CreateVectorByUI()
+    public void CreateVectorByUI(bool _isRealVector)
     {
         float[] tmpStartValue = new float[3];
         for (int i = 0; i < 3; i++)
@@ -28,17 +29,17 @@ public class VectorGenerator : MonoBehaviour
         {
             float.TryParse(End_Val_InputField[i].text, out tmpEndValue[i]);
         }
-        CreateVector(
+        CreateVector(_isRealVector,
             tmpStartValue[0], tmpStartValue[1], tmpStartValue[2],
             tmpEndValue[0], tmpEndValue[1], tmpEndValue[2], vectorNameInputField.text);
 
         
     }
-    public MyVector CreateVector(
+    public MyVector CreateVector(bool _isRealVector,
         float _startX, float _startY, float _startZ,
         float _endX, float _endY, float _endZ, string _vectorName="Vec_")
     {
-        MyVector tmpVector = Instantiate(VectorPrefab, LinearAlgebraManager.GetInstance().CurrentCoordinateSystem.transform).GetComponent<MyVector>();
+        MyVector tmpVector = Instantiate(_isRealVector? VectorPrefab : GuideVectorPrefab, LinearAlgebraManager.GetInstance().CurrentCoordinateSystem.transform).GetComponent<MyVector>();
         tmpVector.InitializeVector(
             new Vector3(_startX, _startY, _startZ),
             new Vector3(_endX, _endY, _endZ));

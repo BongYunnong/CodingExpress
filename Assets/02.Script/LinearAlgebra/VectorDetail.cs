@@ -37,6 +37,8 @@ public class VectorDetail : MonoBehaviour
         myVector.InitializeVector(
             new Vector3(tmpStartValue[0], tmpStartValue[1], tmpStartValue[2]),
             myVector.endPos);
+
+       LinearAlgebraManager.GetInstance().UpdateAxisBasedPresentationVectors();
     }
     public void SetEndPos()
     {
@@ -48,6 +50,7 @@ public class VectorDetail : MonoBehaviour
         myVector.InitializeVector(
             myVector.startPos, 
             new Vector3(tmpEndValue[0], tmpEndValue[1], tmpEndValue[2]));
+        LinearAlgebraManager.GetInstance().UpdateAxisBasedPresentationVectors();
     }
 
     public void SetVectorName(string _newName)
@@ -58,5 +61,21 @@ public class VectorDetail : MonoBehaviour
     public void SetVectorColor(Color _newColor)
     {
         myVector.SetVectorColor(_newColor);
+    }
+
+
+    float scaling = 0;
+    public void ChangeScale(float _value)
+    {
+        scaling = _value;
+    }
+
+    private void Update()
+    {
+        if (scaling != 0)
+        {
+            myVector.ChangeScale(scaling);
+            LinearAlgebraManager.GetInstance().UpdateAxisBasedPresentationVectors();
+        }
     }
 }
