@@ -18,13 +18,15 @@ public class VectorDetail : MonoBehaviour
 
         vectorNameInputField.SetTextWithoutNotify(myVector.name);
 
-        Start_Val_InputField[0].SetTextWithoutNotify(myVector.startPos.x.ToString());
-        Start_Val_InputField[1].SetTextWithoutNotify(myVector.startPos.y.ToString());
-        Start_Val_InputField[2].SetTextWithoutNotify(myVector.startPos.z.ToString());
+        Vector3 tmpPos = myVector.GetStartPos();
+        Start_Val_InputField[0].SetTextWithoutNotify(tmpPos.x.ToString());
+        Start_Val_InputField[1].SetTextWithoutNotify(tmpPos.y.ToString());
+        Start_Val_InputField[2].SetTextWithoutNotify(tmpPos.z.ToString());
 
-        End_Val_InputField[0].SetTextWithoutNotify(myVector.endPos.x.ToString());
-        End_Val_InputField[1].SetTextWithoutNotify(myVector.endPos.y.ToString());
-        End_Val_InputField[2].SetTextWithoutNotify(myVector.endPos.z.ToString());
+        tmpPos = myVector.GetEndPos();
+        End_Val_InputField[0].SetTextWithoutNotify(tmpPos.x.ToString());
+        End_Val_InputField[1].SetTextWithoutNotify(tmpPos.y.ToString());
+        End_Val_InputField[2].SetTextWithoutNotify(tmpPos.z.ToString());
     }
 
     public void SetStartPos()
@@ -36,7 +38,7 @@ public class VectorDetail : MonoBehaviour
         }
         myVector.InitializeVector(
             new Vector3(tmpStartValue[0], tmpStartValue[1], tmpStartValue[2]),
-            myVector.endPos);
+            myVector.GetEndPos());
 
        LinearAlgebraManager.GetInstance().UpdateAxisBasedPresentationVectors();
     }
@@ -48,7 +50,7 @@ public class VectorDetail : MonoBehaviour
             float.TryParse(End_Val_InputField[i].text, out tmpEndValue[i]);
         }
         myVector.InitializeVector(
-            myVector.startPos, 
+            myVector.GetStartPos(), 
             new Vector3(tmpEndValue[0], tmpEndValue[1], tmpEndValue[2]));
         LinearAlgebraManager.GetInstance().UpdateAxisBasedPresentationVectors();
     }

@@ -2,6 +2,9 @@
 {
    Properties
    {
+      _Matrix1("matrix", vector) = (1,1,1,1)
+      _Matrix2("matrix", vector) = (1,1,1,1)
+      _Matrix3("matrix", vector) = (1,1,1,1)
       _MainColor("Main Color", Color) = (0.5, 1.0, 1.0)
       _SecondaryColor("Secondary Color", Color) = (0.0, 0.0, 0.0)
       _BackgroundColor("Background Color", Color) = (0.0, 0.0, 0.0, 0.0)
@@ -67,6 +70,11 @@
          fixed4 _SecondaryColor;
          fixed4 _BackgroundColor;
 
+
+         float4 _Matrix1;
+         float4 _Matrix2;
+         float4 _Matrix3;
+
          uniform float4 _PlayerPosition;
          uniform float _VisibleDistance;
 
@@ -100,6 +108,7 @@
             fixed4 col = _MainColor;
             fixed4 maskCol = tex2D(_MaskTexture, i.uv1);
 				
+
             // With the ceil value of the log10 of the scale, we obtain the closest measure unit above (eg : 165 -> 3, 0.146 -> 0, 0.001 -> -3)
             // Then, we do 10^(this value) to get the actual value of that unit in meters
             // Finally, we divide the scale by this unit in meters to have our log mapped scale
@@ -117,8 +126,16 @@
 
             float2 pos;
 
+            float2x2 fMatrix =
+            { _Matrix2.y ,  _Matrix1.y,
+               _Matrix2.x ,  _Matrix1.x
+            };
+            i.uv = mul(fMatrix, i.uv);
+
+
             pos.x = floor(frac((i.uv.x - 0.5 * _Thickness) * localScale) + _Thickness * localScale);
             pos.y = floor(frac((i.uv.y - 0.5 * _Thickness) * localScale) + _Thickness * localScale);
+
 
             if (pos.x == 1 || pos.y == 1) {
                col.a = max((1 - fade), fade);
@@ -130,18 +147,19 @@
                   col = _SecondaryColor;
                   col.a = (1 - fade);
 
-                  float dist = distance(i.position_in_world_space, _PlayerPosition);
-                  if (dist >= _VisibleDistance) {
-                      col.a = 0;
-                  }
-                  else {
-                      col.a = remap(dist, 0, _VisibleDistance, 1, 0);
-                  }
                } else {
                   col = _BackgroundColor;
                }
             }
 				
+
+            float dist = distance(i.position_in_world_space, _PlayerPosition);
+            if (dist >= _VisibleDistance) {
+                col.a = 0;
+            }
+            else {
+                col.a = remap(dist, 0, _VisibleDistance, col.a, 0);
+            }
 
 
             // Apply mask multiplying by its alpha

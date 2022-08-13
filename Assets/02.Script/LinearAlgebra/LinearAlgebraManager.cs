@@ -22,6 +22,7 @@ public class LinearAlgebraManager : MonoBehaviour
 
     public Dictionary<string, MyVector> myVectors = new Dictionary<string, MyVector>();
 
+    [SerializeField] MyVector vectorPrefab;
     public List<MyVector> selectedVectors=new List<MyVector>();
 
     [SerializeField] GameObject DetailPanel;
@@ -33,15 +34,26 @@ public class LinearAlgebraManager : MonoBehaviour
 
     private void Start()
     {
-        axisBasedPresentationVectors[0].SetVectorName("baseAxisX");
-        axisBasedPresentationVectors[0].SetVectorColor(new Color(1,0,0,0.5f));
-        axisBasedPresentationVectors[1].SetVectorName("baseAxisY");
-        axisBasedPresentationVectors[1].SetVectorColor(new Color(0, 1, 0, 0.5f));
-        axisBasedPresentationVectors[2].SetVectorName("baseAxisZ");
-        axisBasedPresentationVectors[2].SetVectorColor(new Color(0, 0, 1, 0.5f));
-        for (int i=0;i< axisBasedPresentationVectors.Length; i++)
+        if (vectorPrefab)
         {
-            axisBasedPresentationVectors[i].gameObject.SetActive(false);
+            axisBasedPresentationVectors[0] = Instantiate(vectorPrefab, transform);
+            axisBasedPresentationVectors[0].InitializeVector(Vector3.zero, Vector3.right * 100);
+            axisBasedPresentationVectors[0].SetVectorName("baseAxisX");
+            axisBasedPresentationVectors[0].SetVectorColor(new Color(1, 0, 0, 0.5f));
+
+            axisBasedPresentationVectors[1] = Instantiate(vectorPrefab, transform);
+            axisBasedPresentationVectors[1].InitializeVector(Vector3.zero, Vector3.up * 100);
+            axisBasedPresentationVectors[1].SetVectorName("baseAxisY");
+            axisBasedPresentationVectors[1].SetVectorColor(new Color(0, 1, 0, 0.5f));
+
+            axisBasedPresentationVectors[2] = Instantiate(vectorPrefab, transform);
+            axisBasedPresentationVectors[2].InitializeVector(Vector3.zero, Vector3.forward * 100);
+            axisBasedPresentationVectors[2].SetVectorName("baseAxisZ");
+            axisBasedPresentationVectors[2].SetVectorColor(new Color(0, 0, 1, 0.5f));
+            for (int i = 0; i < axisBasedPresentationVectors.Length; i++)
+            {
+                axisBasedPresentationVectors[i].gameObject.SetActive(false);
+            }
         }
         initialized = true;
     }
@@ -66,9 +78,21 @@ public class LinearAlgebraManager : MonoBehaviour
                 }
                 else
                 {
-                    UpdateSelectedVectors(2, null);
+                    UpdateSelectedVectors(1, null);
                 }
             }
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+
+            UpdateSelectedVectors(2, null);
+        }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            Camera.main.transform.position = new Vector3(0, 0, -3);
+            Camera.main.transform.LookAt(Vector3.zero);
         }
 
         if (Input.GetKeyDown(KeyCode.Space) )
@@ -146,17 +170,24 @@ public class LinearAlgebraManager : MonoBehaviour
     public void UpdateAxisBasedPresentationVectors()
     {
         bool openDetailPanel = selectedVectors.Count == 1;
-        if (initialized && openDetailPanel)
+        if (initialized && openDetailPanel && axisBasedPresentationVectors[0]!=null)
         {
             axisBasedPresentationVectors[0].InitializeVector(
-                selectedVectors[0].startPos,
-                new Vector3(selectedVectors[0].endPos[0], selectedVectors[0].startPos[1], selectedVectors[0].startPos[2]));
+                selectedVectors[0].GetStartPos(),
+                new Vector3(selectedVectors[0].GetEndPos().x, selectedVectors[0].GetStartPos().y, selectedVectors[0].GetStartPos().z));
+
             axisBasedPresentationVectors[1].InitializeVector(
-                axisBasedPresentationVectors[0].endPos,
-                new Vector3(axisBasedPresentationVectors[0].endPos[0], selectedVectors[0].endPos[1], axisBasedPresentationVectors[0].endPos[2]));
+                Vector3.zero,
+                new Vector3(
+                    0, selectedVectors[0].GetEndPos().y - axisBasedPresentationVectors[0].GetEndPos().y, 0)
+                );
+            axisBasedPresentationVectors[1].transform.position = axisBasedPresentationVectors[0].GetEndPos();
+            
             axisBasedPresentationVectors[2].InitializeVector(
-                axisBasedPresentationVectors[1].endPos,
-                new Vector3(axisBasedPresentationVectors[1].endPos[0], axisBasedPresentationVectors[1].endPos[1], selectedVectors[0].endPos[2]));
+                Vector3.zero,
+                new Vector3(
+                    0 , 0 , selectedVectors[0].GetEndPos().z- axisBasedPresentationVectors[1].GetEndPos().z));
+            axisBasedPresentationVectors[2].transform.position = axisBasedPresentationVectors[1].GetEndPos();
         }
     }
 
@@ -166,16 +197,19 @@ public class LinearAlgebraManager : MonoBehaviour
         {
             VectorGenerator vg = FindObjectOfType<VectorGenerator>();
 
-            Vector3 guidStartPos = selectedVectors[0].startPos;
+            Vector3 guidStartPos = selectedVectors[0].GetStartPos();
             for (int i = 1; i < selectedVectors.Count; i++)
             {
-                Vector3 VectorA = selectedVectors[i - 1].endPos - selectedVectors[i - 1].startPos;
-                Vector3 VectorB = selectedVectors[i].endPos - selectedVectors[i].startPos;
+                Vector3 VectorA = selectedVectors[i - 1].GetEndPos() - selectedVectors[i - 1].GetStartPos();
+                Vector3 VectorB = selectedVectors[i].GetEndPos() - selectedVectors[i].GetStartPos();
                 MyVector calculatedVec = vg.CreateVector(false,
                     guidStartPos.x, guidStartPos.y, guidStartPos.z,
-                    guidStartPos.x + VectorA.x + VectorB.x, guidStartPos.y + VectorA.y + VectorB.y, guidStartPos.z + VectorA.z + VectorB.z, "VectorSumGuide"
+                    guidStartPos.x + VectorA.x + VectorB.x,
+                    guidStartPos.y + VectorA.y + VectorB.y,
+                    guidStartPos.z + VectorA.z + VectorB.z,
+                    "VectorSumGuide"
                     );
-                guidStartPos = calculatedVec.endPos;
+                guidStartPos = calculatedVec.GetEndPos();
             }
         }
     }
@@ -192,9 +226,12 @@ public class LinearAlgebraManager : MonoBehaviour
 
             Vector3 projectedVec = Vector3.Project(selectedVectors[0].distance, selectedVectors[1].distance);
 
+            Vector3 tmpStartPos = selectedVectors[0].GetStartPos();
+            Vector3 tmpEndPos = selectedVectors[0].GetEndPos();
             MyVector calculatedVec = vg.CreateVector(false,
-                selectedVectors[0].endPos.x, selectedVectors[0].endPos.y, selectedVectors[0].endPos.z,
-                selectedVectors[0].startPos.x + projectedVec.x, selectedVectors[0].startPos.y + projectedVec.y, selectedVectors[0].startPos.z + projectedVec.z, "VectorDotProductGuide"
+                tmpEndPos.x, tmpEndPos.y, tmpEndPos.z,
+                tmpStartPos.x + projectedVec.x, tmpStartPos.y + projectedVec.y, tmpStartPos.z + projectedVec.z,
+                "VectorDotProductGuide"
                 );
         }
     }
@@ -210,9 +247,11 @@ public class LinearAlgebraManager : MonoBehaviour
             VectorGenerator vg = FindObjectOfType<VectorGenerator>();
 
 
+            Vector3 tmpPos = selectedVectors[0].GetStartPos();
             MyVector calculatedVec = vg.CreateVector(false,
-                selectedVectors[0].startPos.x, selectedVectors[0].startPos.y, selectedVectors[0].startPos.z,
-                selectedVectors[0].startPos.x + crossedVec.x, selectedVectors[0].startPos.y + crossedVec.y, selectedVectors[0].startPos.z + crossedVec.z, "VectorCrossProductGuide"
+                tmpPos.x, tmpPos.y, tmpPos.z,
+                tmpPos.x + crossedVec.x, tmpPos.y + crossedVec.y, tmpPos.z + crossedVec.z,
+                "VectorCrossProductGuide"
                 );
         }
     }

@@ -1,5 +1,65 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &944863856453556686
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1231156166875670798}
+  m_Layer: 0
+  m_Name: XZPlane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1231156166875670798
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944863856453556686}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6433001126030698488}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3719262741259932451
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 644060485422838563}
+  m_Layer: 0
+  m_Name: YZPlane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &644060485422838563
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3719262741259932451}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6433001126030698488}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6433001125422889615
 GameObject:
   m_ObjectHideFlags: 0
@@ -418,6 +478,9 @@ Transform:
   - {fileID: 6433001125422889613}
   - {fileID: 6433001125693754505}
   - {fileID: 6433001125725919430}
+  - {fileID: 2094615130051156326}
+  - {fileID: 1231156166875670798}
+  - {fileID: 644060485422838563}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -437,3 +500,48 @@ MonoBehaviour:
   axis_Y_Line: {fileID: 6433001125693754506}
   axis_Z_Line: {fileID: 6433001125725919431}
   maxAxisLineLength: 100000
+  gridPlanePrefab: {fileID: 3555600717041178173, guid: c697d975320ebc34c84ef5bdb00de33e, type: 3}
+  _initialGridWidth: 4
+  _initialGridHeight: 4
+  _myCubePrefab: {fileID: 1063986444966879769, guid: 8f1703f8d96edda41b2c533803cc9c3e, type: 3}
+  _mySpherePrefab: {fileID: 1100985347473738634, guid: 821d5ac1d89b4204090162c508d2c5e8, type: 3}
+  BasisMatrix:
+    rows:
+    - row: 01000000000000000000000000000000
+    - row: 00000000010000000000000000000000
+    - row: 00000000000000000100000000000000
+    - row: 00000000000000000000000001000000
+  LinearTransforming: 0
+  XYPlaneParent: {fileID: 2094615130051156326}
+  XZPlaneParent: {fileID: 1231156166875670798}
+  YZPlaneParent: {fileID: 644060485422838563}
+--- !u!1 &6767042438961632064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2094615130051156326}
+  m_Layer: 0
+  m_Name: XYPlane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2094615130051156326
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6767042438961632064}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6433001126030698488}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

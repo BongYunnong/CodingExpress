@@ -1065,14 +1065,14 @@ MonoBehaviour:
       - m_Target: {fileID: 7825103340720813922}
         m_TargetAssemblyTypeName: VectorGenerator, Assembly-CSharp
         m_MethodName: CreateVectorByUI
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &7825103338703421025
 GameObject:
@@ -3770,7 +3770,7 @@ MonoBehaviour:
   OnColorSelect:
     m_PersistentCalls:
       m_Calls: []
-  currentColor: {r: 0, g: 0, b: 0, a: 0}
+  currentColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &7825103340063423550
 GameObject:
   m_ObjectHideFlags: 0
@@ -5004,6 +5004,7 @@ GameObject:
   - component: {fileID: 7825103340720813923}
   - component: {fileID: 7825103340720813920}
   - component: {fileID: 7825103340720813922}
+  - component: {fileID: 2001525325}
   m_Layer: 5
   m_Name: VectorGeneratorPanel
   m_TagString: Untagged
@@ -5083,6 +5084,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VectorPrefab: {fileID: 266082210447175500, guid: 3108915b41bfa9f479b7de6337fdf0fe, type: 3}
+  GuideVectorPrefab: {fileID: 849181404488387986, guid: d8556f3a2d5f7124596e8f1d21e7449f, type: 3}
   vectorNameInputField: {fileID: 6993669759552945687}
   Start_Val_InputField:
   - {fileID: 7825103339663436769}
@@ -5093,6 +5095,18 @@ MonoBehaviour:
   - {fileID: 7825103340208704641}
   - {fileID: 7825103340546769765}
   vectorColorPicker: {fileID: 7825103340044112932}
+--- !u!225 &2001525325
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7825103340720813854}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7825103340780512693
 GameObject:
   m_ObjectHideFlags: 0
