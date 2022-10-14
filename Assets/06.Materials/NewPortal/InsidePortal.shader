@@ -2,6 +2,7 @@ Shader "InsidePortal"
 {
     Properties
     {
+        [IntRange] _StencilID("Stencil ID",Range(0,255)) = 0
         [NoScaleOffset] Texture2D_5475c216173c4a99a0018c21ff1fb842("Texture2D", 2D) = "white" {}
         [HideInInspector][NoScaleOffset]unity_Lightmaps("unity_Lightmaps", 2DArray) = "" {}
         [HideInInspector][NoScaleOffset]unity_LightmapsInd("unity_LightmapsInd", 2DArray) = "" {}
@@ -18,12 +19,12 @@ Shader "InsidePortal"
         }
         Stencil{
             // 스텐실을 쓴다면 값이 0임
-            Ref 0
+            Ref [_StencilID]
             //Render pixels where Ref differs from buffer value
             // 만약에 Equal을 쓰면 원래는 보이는 것이 Portal을 통해 보면 보이지 않게 됨
-            Comp NotEqual
+            Comp Equal
             //Keep buffer contents
-            Pass keep
+            Pass replace
         }
         Pass
         {

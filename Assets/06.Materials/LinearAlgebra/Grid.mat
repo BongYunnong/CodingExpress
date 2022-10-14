@@ -133,7 +133,7 @@ Material:
     - _Matrix1: {r: 0.65, g: 0.98, b: 0, a: 0}
     - _Matrix2: {r: 0.23, g: 0.72, b: 0, a: 0}
     - _Matrix3: {r: 0, g: 0, b: 0, a: 0}
-    - _PlayerPosition: {r: -6.2922473, g: 6.7282414, b: 5.4898977, a: 0}
+    - _PlayerPosition: {r: 6.2213135, g: 6.465256, b: -4.76074, a: 0}
     - _SecondaryColor: {r: 0.54745257, g: 0.26432896, b: 0.5660378, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

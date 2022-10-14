@@ -1,5 +1,4 @@
 Shader "Custom/Portal"{
-
     Properties{
         [IntRange] _StencilID("Stencil ID",Range(0,255)) = 0
     }
